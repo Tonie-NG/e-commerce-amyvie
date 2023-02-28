@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
     },
     dateofbirth: {
-      type: Date,
+      type: String,
     },
     isAdmin: {
       type: Boolean,
@@ -31,6 +31,9 @@ const UserSchema = new mongoose.Schema(
     verified: {
       type: Boolean,
       default: false,
+    },
+    gender: {
+      type: String,
     },
   },
   { timestamps: true }
