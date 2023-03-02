@@ -2,7 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
-const user = require("./user/user_route");
+const forgotPasswordRoute = require("./routers/forgot_password_route");
+const registerRoute = require("./routers/register_route");
+const loginRoute = require("./routers/login_route");
 const app = express();
 require("./database/db").connect();
 
@@ -20,7 +22,9 @@ app.get("/", (req, res) => {
   res.status(200).json({ msg: "Welcome to the server" });
 });
 
-app.use("/", user);
+app.use("/", registerRoute);
+app.use("/", loginRoute);
+app.use("/", forgotPasswordRoute);
 
 app.listen(process.env.PORT || 5000, () => {
   console.log(`Server is up and running`);
