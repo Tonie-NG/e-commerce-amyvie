@@ -41,7 +41,7 @@ const register = async (req, res) => {
     });
     const savedUser = await newUser.save();
 
-    return res.status(200).json({
+    return res.status(201).json({
       savedUser,
       messaage: "An email has been sent, please verify your account",
     });
@@ -134,6 +134,7 @@ const get_password = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
 module.exports = {
   verify,
   get_password,

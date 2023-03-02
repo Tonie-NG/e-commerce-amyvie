@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const forgotPasswordRoute = require("./routers/forgot_password_route");
 const registerRoute = require("./routers/register_route");
 const loginRoute = require("./routers/login_route");
+const userRoute = require("./routers/user_route");
 const app = express();
 require("./database/db").connect();
 
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 app.use("/", registerRoute);
 app.use("/", loginRoute);
 app.use("/", forgotPasswordRoute);
+app.use("/user", userRoute);
 
 app.listen(process.env.PORT || 5000, () => {
   console.log(`Server is up and running`);
