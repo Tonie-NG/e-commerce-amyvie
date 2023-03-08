@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const {
-  verifyToken,
-  verifyTokenAndAdmin,
-} = require("../middlewares/verify_jwt");
+const { verifyToken } = require("../middlewares/verify_jwt");
+const { create } = require("../controllers/product_controller");
 
-router.post("/create", verifyToken);
+router.post("/create", verifyToken, create);
 
 module.exports = router;

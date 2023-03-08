@@ -4,29 +4,36 @@ const ProductSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Product must have a name"],
     },
     type: {
       type: String,
-      required: true,
+      required: [true, "Product must have a type"],
     },
     image: {
-      type: String,
-      required: true,
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
     },
     categories: {
-      type: [String],
+      type: String,
+      required: [true, "Product must have a category"],
     },
     description: {
       type: String,
-      required: true,
+      required: [true, "Product must have a description"],
     },
     price: {
-      type: String,
-      required: true,
+      type: Number,
+      required: [true, "Product must have a price"],
     },
     color: {
-      type: String,
+      type: [String],
     },
     size: {
       type: Array,
