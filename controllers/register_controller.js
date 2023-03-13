@@ -2,7 +2,7 @@ const crypto = require("crypto");
 const User = require("../models/user_schema");
 const Token = require("../models/register_token");
 const sendMail = require("../utilities/sendemail");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const maxAge = 3 * 24 * 60 * 60; // use to set the expiry period of the jwt and cookie
 
 const register = async (req, res) => {

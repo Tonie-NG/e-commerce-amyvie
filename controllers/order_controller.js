@@ -2,24 +2,19 @@ const Order = require("../models/order_schema");
 
 //get_order
 const create_order = async (req, res) => {
-  const user = req.data;
+  const user = req.data; //getting the user information from the verifytoken middleware
   try {
-    const { productId } = req.params.id;
-    const { amount, quantity, address } = req.body;
+    const { price, quantity, address, products } = req.body;
+    //products should be an array of objects which will include product Id, quantity and amount per product
 
-    if ((!amount, !quantity, address)) {
+    if ((!price, !quantity, !address)) {
       return res.status(400).json({ error: "Please enter all fields" });
     }
 
     const newOrder = new Order({
       userId: user.id,
-      products: [
-        {
-          productId,
-          quantity,
-        },
-      ],
-      amount,
+      products,
+      price,
       address,
     });
 
@@ -30,6 +25,64 @@ const create_order = async (req, res) => {
   }
 };
 
+const get_orders = async (req, res) => {
+  try {
+    const orders = await Order.find().sort({ date: -1 });
+
+    if (!orders) {
+      return res.status(404).json({ error: "No Orders found" });
+    }
+
+    return res.status(200).json(orders);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
+
+const get_order = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+    return res.status(200).json(order);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
+
+const delete_order = async (req, res) => {
+  try {
+    await Order.findByIdAndDelete(req.params.id);
+    res.status(204).json("Order has been deleted...");
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
+
+const update_order = async (req, res) => {
+  try {
+    const updatedOrder = await Order.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+    return res.status(201).json(updatedOrder);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
+
 module.exports = {
   create_order,
+  get_orders,
+  get_order,
+  update_order,
+  delete_order,
 };

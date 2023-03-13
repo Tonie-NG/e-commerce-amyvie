@@ -37,7 +37,6 @@ const ProductSchema = new mongoose.Schema(
     },
     size: {
       type: [String],
-      default: ["S", "M", "L", "XL", "XXL"],
     },
     inStock: {
       type: Boolean,

@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 const User = require("../models/user_schema");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const maxAge = 3 * 24 * 60 * 60; // use to set the expiry period of the jwt and cookie
 

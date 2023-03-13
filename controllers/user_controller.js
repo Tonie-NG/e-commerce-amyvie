@@ -1,6 +1,6 @@
 const User = require("../models/user_schema");
 const sendMail = require("../utilities/sendemail");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const get_user = async (req, res) => {
   try {

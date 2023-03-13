@@ -3,6 +3,7 @@ const cloudinary = require("../utilities/upload");
 
 const create_product = async (req, res) => {
   const { name, type, categories, description, price } = req.body;
+  // possible product categories [male, female, assesories, custom made]
   const file = req.files.image;
 
   try {
