@@ -1,4 +1,5 @@
 const Order = require("../models/order_schema");
+const Message = require("../models/message_schema");
 
 //get_order
 const create_order = async (req, res) => {
@@ -18,8 +19,16 @@ const create_order = async (req, res) => {
       address,
     });
 
+    const newMessage = new Message({
+      userId: user.id,
+      orderId: newOrder.id,
+      message: "Your order has been created and it's now pending",
+    });
+
     const savedOrder = await newOrder.save();
-    return res.status(201).send(savedOrder);
+    const savedMessage = await newMessage.save();
+
+    return res.status(201).send({ savedOrder, savedMessage });
   } catch (error) {
     return res.status(500).send(error.message);
   }
@@ -54,6 +63,7 @@ const get_order = async (req, res) => {
 const delete_order = async (req, res) => {
   try {
     await Order.findByIdAndDelete(req.params.id);
+    await Message.find({ orderId: req.params.id }).deleteMany();
     res.status(204).json("Order has been deleted...");
   } catch (error) {
     return res.status(500).send(error.message);
