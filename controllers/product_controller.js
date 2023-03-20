@@ -40,12 +40,47 @@ const create_product = async (req, res) => {
   }
 };
 
-const get_products = async (req, res) => {
+const get_Products = async (req, res) => {
   try {
-    const query = req.query.new;
-    const Products = query
-      ? await Product.find().sort({ date: -1 })
-      : await Product.find();
+    const qCat = req.query.category;
+    const qType = req.query.type;
+    const qName = req.query.name;
+    const qPrice = req.query.price;
+
+    if (qCat) {
+      const Products = await Product.find({
+        categories: {
+          $in: [qCat],
+        },
+      });
+      return res.status(200).send(Products);
+    }
+    if (qType) {
+      const Products = await Product.find({
+        type: {
+          $in: [qType],
+        },
+      });
+      return res.status(200).send(Products);
+    }
+
+    if (qName) {
+      const mysort = { name: 1 };
+
+      const Products = await Product.find().sort(mysort);
+
+      return res.status(200).json(Products);
+    }
+    if (qPrice) {
+      const mysort = { price: 1 };
+
+      const Products = await Product.find().sort(mysort);
+
+      return res.status(200).json(Products);
+    }
+
+    const Products = Product.find().sort({ date: -1 });
+
     if (!Products) {
       return res.status(404).json({ error: "No Products found" });
     }
@@ -98,7 +133,7 @@ const update_product = async (req, res) => {
 
 module.exports = {
   create_product,
-  get_products,
+  get_Products,
   get_product,
   delete_product,
   update_product,
