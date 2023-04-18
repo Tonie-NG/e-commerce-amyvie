@@ -70,7 +70,7 @@ const get_all_reviews = async (req, res) => {
     const product = req.params.id;
     const reviews = product
       ? await Review.find({ productId: product }).sort({ date: -1 })
-      : await Review.find().sort({ date: -1 });
+      : await Review.find();
     if (!reviews) {
       return res.status(404).json({ error: "No reviews found" });
     }

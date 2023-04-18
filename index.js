@@ -22,6 +22,8 @@ app.use(
     origin: "*",
   })
 );
+
+//to aid file upload
 app.use(fileupload({ useTempFiles: true }));
 
 dotenv.config();

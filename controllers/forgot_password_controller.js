@@ -13,14 +13,67 @@ const forgot_password = async (req, res) => {
     }
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ error: "User does not exist" });
+      return res
+        .status(400)
+        .json({ error: `User with ${email} does not exist` });
     }
 
     const token = crypto.randomBytes(4).toString("hex");
     const messaage = token;
     const subject = "Reset your password";
+    const html = `<!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Login Template</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+          }
+          .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          }
+          h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+          }
+          button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+          }
+          button[type="submit"]:hover {
+            background-color: #3e8e41;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Login</h1>
+          <p>Use this digit code to verify your email address
+          ${token}
+          </p>
+        </div>
+      </body>
+    </html>`;
 
-    const sentEmail = await sendMail(email, subject, messaage);
+    const sentEmail = await sendMail(email, subject, messaage, html);
     const newToken = new ResetToken({
       token,
       email: email.toLowerCase(),

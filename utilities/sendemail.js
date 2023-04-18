@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-module.exports = async (email, subject, text) => {
+module.exports = async (email, subject, text, html) => {
   try {
     // initialize and define the mode of transport
     const transporter = nodemailer.createTransport({
@@ -20,6 +20,7 @@ module.exports = async (email, subject, text) => {
       to: email,
       subject: subject,
       text: text,
+      html: html,
     });
   } catch (error) {
     console.log(error.message);

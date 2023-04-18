@@ -5,7 +5,7 @@ const get_email = (req, res, next) => {
     req.email = email;
     next();
   } else {
-    res.status(401).json({ error: "I don't have your email address" });
+    res.status(401).json({ error: "You are not logged in" });
   }
 };
 

@@ -40,8 +40,9 @@ const create_product = async (req, res) => {
   }
 };
 
-const get_Products = async (req, res) => {
+const get_products = async (req, res) => {
   try {
+    // query paramenter to sort the products
     const qCat = req.query.category;
     const qType = req.query.type;
     const qName = req.query.name;
@@ -133,7 +134,7 @@ const update_product = async (req, res) => {
 
 module.exports = {
   create_product,
-  get_Products,
+  get_products,
   get_product,
   delete_product,
   update_product,
