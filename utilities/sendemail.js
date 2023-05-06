@@ -20,7 +20,6 @@ module.exports = async (email, subject, text, html) => {
       to: email,
       subject: subject,
       text: text,
-      html: html,
     });
   } catch (error) {
     console.log(error.message);

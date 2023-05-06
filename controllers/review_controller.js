@@ -1,7 +1,7 @@
 const Review = require("../models/review_model");
 
 const post_review = async (req, res) => {
-  const Review = req.data; //this information is gotten from the jwt verification middleware
+  const ReviewDetails = req.data; //this information is gotten from the jwt verification middleware
   try {
     const { star, desc } = req.body;
     const { productId } = req.params;
@@ -12,7 +12,7 @@ const post_review = async (req, res) => {
 
     const newReview = new Review({
       productId,
-      ReviewId: Review._id,
+      ReviewId: ReviewDetails._id,
       star,
       desc,
     });
@@ -65,17 +65,17 @@ const get_review = async (req, res) => {
   }
 };
 
-const get_all_reviews = async (req, res) => {
+const get_all_ReviewDetails = async (req, res) => {
   try {
     const product = req.params.id;
-    const reviews = product
+    const ReviewDetails = product
       ? await Review.find({ productId: product }).sort({ date: -1 })
       : await Review.find();
-    if (!reviews) {
-      return res.status(404).json({ error: "No reviews found" });
+    if (!ReviewDetails) {
+      return res.status(404).json({ error: "No ReviewDetails found" });
     }
 
-    return res.status(200).json(reviews);
+    return res.status(200).json(ReviewDetails);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -94,6 +94,6 @@ module.exports = {
   post_review,
   update_review,
   get_review,
-  get_all_reviews,
+  get_all_ReviewDetails,
   delete_review,
 };

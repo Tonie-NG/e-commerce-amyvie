@@ -1,5 +1,6 @@
 const Message = require("../models/message_schema");
 
+//Message is created alongside the order in the order route
 const get_messages = async (req, res) => {
   try {
     const messages = await Message.find().sort({ date: -1 });

@@ -13,7 +13,7 @@ const forgot_password = async (req, res) => {
     }
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ error: "Userz does not exist" });
+      return res.status(400).json({ error: "User does not exist" });
     }
 
     const token = crypto.randomBytes(4).toString("hex");

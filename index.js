@@ -10,6 +10,7 @@ const reviewRoute = require("./routers/review_route");
 const productRoute = require("./routers/product_route");
 const orderRoute = require("./routers/order_route");
 const messageRoute = require("./routers/message_route");
+const customMadeRoute = require("./routers/custom_made_route");
 const fileupload = require("express-fileupload");
 
 const app = express();
@@ -40,6 +41,7 @@ app.use("/reviews", reviewRoute);
 app.use("/products", productRoute);
 app.use("/orders", orderRoute);
 app.use("/messages", messageRoute);
+app.use("/custom-made", customMadeRoute);
 
 app.listen(process.env.PORT || 5000, () => {
   console.log(`Server is up and running`);
